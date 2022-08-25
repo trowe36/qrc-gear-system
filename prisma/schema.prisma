@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model applications {
+  ID                    Int       @id @default(autoincrement())
+  firstname             String    @db.Text
+  lastname              String?   @db.Text
+  gender                String?   @db.Text
+  dob                   DateTime? @db.Date
+  email                 String    @unique(map: "email_UNIQUE") @default("") @db.VarChar(255)
+  phone                 String?   @db.Text
+  street                String?   @db.Text
+  suburb                String?   @db.Text
+  country               String?   @db.Text
+  state                 String?   @db.Text
+  postcode              Int?
+  student_status        Int?
+  student_id            String?   @db.Text
+  student_international Int?
+  em_name               String?   @db.Text
+  em_phone              String?   @db.Text
+  password              String?   @default("") @db.VarChar(255)
+  hear                  String?   @db.Text
+  student_duration      Int?
+  brisbane_duration     Int?
+  experience            Int?
+  has_car               Int?
+  help_setting          Int?
+  kp_attendance         Int?
+  weekend_attendance    Int?
+  justification         String?   @db.LongText
+  status                String?   @db.VarChar(1)
+  points                Int?
+  date_submitted        DateTime? @db.Date
+}
+
+model logbook_signoffs {
+  id                 Int       @id @default(autoincrement())
+  member_id          Int
+  skill_id           Int
+  guide_id           Int
+  submitted_time     DateTime  @db.Date
+  status             String    @db.VarChar(1)
+  approved_time      DateTime? @db.Date
+  skills_coord_notes String?   @db.LongText
+}
+
+model logbook_skills {
+  id          Int     @id @default(autoincrement()) @db.UnsignedInt
+  skill_set   Int?
+  skill_name  String? @db.Text
+  guide_level Int?
+  prereqs     String? @db.Text
+}
+
+model members {
+  ID                    Int       @id @default(autoincrement())
+  firstname             String    @db.Text
+  lastname              String    @db.Text
+  forum_username        String?   @db.Text
+  gender                String?   @db.Text
+  dob                   DateTime? @db.Date
+  email                 String    @unique(map: "email_UNIQUE") @default("") @db.VarChar(255)
+  phone                 String?   @db.Text
+  street                String?   @db.Text
+  suburb                String?   @db.Text
+  country               String?   @db.Text
+  state                 String?   @db.Text
+  postcode              Int?
+  student_status        Int?
+  student_id            String?   @db.Text
+  student_international Int?
+  em_name               String?   @db.Text
+  em_phone              String?   @db.Text
+  signup_id             Int?
+  status                String?   @db.VarChar(1)
+  member_since          DateTime? @db.Date
+  expire                DateTime? @db.Date
+  password              String?   @default("") @db.VarChar(255)
+  role                  String?   @db.VarChar(1)
+}
+
+model seconder_logs {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  skill_id    Int
+  member_id   Int
+  subskill_id Int
+  guide_id    Int
+  time        DateTime @db.Date
+}
+
+model tr_logs {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  skill_id    Int
+  climb       String   @db.Text
+  anchor      String   @db.Text
+  member_id   Int
+  observer_id Int
+  time        DateTime @db.Date
+  errors      String?  @db.LongText
+}
+
+model trip_signups {
+  id                   Int       @id @default(autoincrement()) @db.UnsignedInt
+  trip_id              Int?
+  climber_id           Int?
+  date_from            DateTime? @db.Date
+  date_to              DateTime? @db.Date
+  driving              Int?
+  driving_space        Int?
+  first_aid            Int?
+  camping_requirements String?   @db.Text
+  comments             String?   @db.Text
+}
+
+model trips {
+  id           Int       @id @default(autoincrement()) @db.UnsignedInt
+  name         String?   @db.Text
+  description  String?   @db.LongText
+  date_from    DateTime? @db.Date
+  date_to      DateTime? @db.Date
+  camping_trip Int?
+  crag         String?   @db.Text
+  signup_close DateTime? @db.Date
+}
