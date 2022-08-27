@@ -127,3 +127,14 @@
     filter: invert(1);
   }
 }
+
+
+
+
+
+/*----------------------------------------ADMIN PAGE STYLES */
+
+.adminPageWrapper {
+  background-color: grey;
+  align-items: center;
+}
