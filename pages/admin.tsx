@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import internal from "stream";
 import styles from "../styles/Home.module.css";
+import QRCode from "qrcode";
+import { useEffect, useState } from "react";
+
 //https://react-hook-form.com/get-started#Registerfields
 
 enum itemCatEnum {
@@ -59,14 +62,46 @@ interface IFormInput {
 
 export default function App() {
   const { register, handleSubmit } = useForm<IFormInput>();
+  const [QRImg, setQRImg] = useState("");
+  const [genString, setGenString] = useState("");
+
+  let QRGenerated = false;
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    fetch('/api/hello')
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
+    QRCode.toDataURL(genString).then(setQRImg);
+    console.log(data);
+    fetch('/api/hello', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
     })
-  };
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
+
+  async function makeGenString(length : number) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * 
+ charactersLength));
+   }
+   return result;
+   //setGenString(result);
+}
+  async function generateQR(){
+    setGenString(await makeGenString(16))
+    //setTimeout(50)
+    QRGenerated = true;
+  }
 
   return (
     <div className={styles.adminPageWrapper}>
@@ -146,9 +181,13 @@ export default function App() {
           <label>Additional Comments</label>
           <input {...register("comments")} />
         </div>
-
+        <button onClick={generateQR}> GenerateQR</button>
+      <img src = {QRImg}/>
         <input type="submit" />
       </form>
+
+
+      
     </div>
   );
 }

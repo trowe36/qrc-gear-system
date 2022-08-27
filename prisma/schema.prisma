@@ -129,3 +129,19 @@ model trips {
   crag         String?   @db.Text
   signup_close DateTime? @db.Date
 }
+
+model gear {
+  id                  Int     @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  category            String  @db.VarChar(45)
+  date_entered        String  @db.VarChar(45)
+  admin               String  @db.VarChar(45)
+  remaining_life      Int
+  quality             Int
+  signoff_required    String  @db.VarChar(45)
+  status              String  @db.VarChar(45)
+  parent_ID           Int?
+  location            String  @db.VarChar(45)
+  comments            String? @db.VarChar(45)
+  borrow_count        Int?
+  current_borrower_ID Int?
+}
