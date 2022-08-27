@@ -144,4 +144,5 @@ model gear {
   comments            String? @db.VarChar(45)
   borrow_count        Int?
   current_borrower_ID Int?
+  code                String? @db.VarChar(255)
 }

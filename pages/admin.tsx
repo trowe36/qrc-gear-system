@@ -58,6 +58,8 @@ interface IFormInput {
   parentKitID: Number;
   location: locationEnum;
   comments: String;
+
+  QRCodeString: String;
 }
 
 export default function App() {
@@ -75,7 +77,7 @@ export default function App() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({data, genString}),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -185,7 +187,7 @@ export default function App() {
       <img src = {QRImg}/>
         <input type="submit" />
       </form>
-
+      
 
       
     </div>

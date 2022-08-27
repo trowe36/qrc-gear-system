@@ -15,31 +15,22 @@ export default async function handler(
   //const members = await prisma.members.findMany();
   //console.log(members);
   //console.log("kk" + Object.values(req.body));
-  console.log(req.body.category);
-  // comments: ""
-  // currentQuality: ""
-  // dateEntered: ""
-  // id: ""
-  // itemCategory: "QD"
-  // location: "KP"
-  // parentKitID: ""
-  // remainingLife: ""
-  // requiredSignoff: "topClimber"
-  // status: "available"
-  // user: ""
+  //console.log(req.body);
+
   const updateUser = await prisma.gear.create({
     data: {
-      category : req.body.itemCategory,
-      date_entered : req.body.dateEntered,
-      admin : req.body.user,
-      remaining_life : parseInt(req.body.remainingLife),
-      quality : parseInt(req.body.currentQuality),
-      signoff_required : req.body.requiredSignoff,
-      status : req.body.status,
-      parent_ID: parseInt(req.body.parentKitID) ,
-      location: req.body.location,
-      comments  : req.body.comments,
-      borrow_count : req.body.borrow_count
+      category : req.body.data.itemCategory,
+      date_entered : req.body.data.dateEntered,
+      admin : req.body.data.user,
+      remaining_life : parseInt(req.body.data.remainingLife),
+      quality : parseInt(req.body.data.currentQuality),
+      signoff_required : req.body.data.requiredSignoff,
+      status : req.body.data.status,
+      parent_ID: parseInt(req.body.data.parentKitID) ,
+      location: req.body.data.location,
+      comments  : req.body.data.comments,
+      borrow_count : req.body.data.borrow_count,
+      code: req.body.genString
     },
   })
 
