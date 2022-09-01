@@ -83,9 +83,12 @@ export default function HomePage() {
               rowSelection='multiple'>
             </AgGridReact>
             <span>{info}</span>
-            <Button variant="contained" onClick={checkoutGear}  href="/admin" >
-            Borrow Selected Gear
-          </Button>
+            <Link href={{
+              pathname: '/userPage',
+              query: JSON.stringify(borrowSelection)
+            }}>
+              Borrow Items
+            </Link>
           </div>
 
         )}
