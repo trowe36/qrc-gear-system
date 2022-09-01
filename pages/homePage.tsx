@@ -5,10 +5,10 @@ import Stack from '@mui/material/Stack';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles//ag-grid.css';
 import 'ag-grid-community/styles//ag-theme-alpine.css';
-
+import Link from 'next/link';
 let showLib = false;
 
-
+let borrowSelection: Array<{ id: Number}> = []
 
 export default function HomePage() {
   const [showLib, setShowLib] = useState(false);
@@ -22,8 +22,12 @@ export default function HomePage() {
     }
   }
 
-  const [rowData, setRowData] = useState([]);
+  function checkoutGear(){
+    console.log("checking out gear ids = " + borrowSelection)
+  }
 
+  const [rowData, setRowData] = useState([]);
+  const [info, setInfo] = useState("");
 
   const [columnDefs] = useState([
     { headerName: "ID", field: 'id' },
@@ -71,9 +75,17 @@ export default function HomePage() {
           <div className="ag-theme-alpine" style={{height: 400, width: 1500}} >
             <AgGridReact
               rowData={rowData}
-              columnDefs={columnDefs}>
+              columnDefs={columnDefs}
+              onRowClicked={(row: any) => {
+                borrowSelection.push(row.data.id)
+                setInfo(`${info}  ${row.data.id}`);
+              }}
+              rowSelection='multiple'>
             </AgGridReact>
-            <h1>hello</h1>
+            <span>{info}</span>
+            <Button variant="contained" onClick={checkoutGear}  href="/admin" >
+            Borrow Selected Gear
+          </Button>
           </div>
 
         )}
