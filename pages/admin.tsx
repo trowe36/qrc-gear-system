@@ -63,11 +63,24 @@ interface IFormInput {
 }
 
 export default function App() {
-  const { register, handleSubmit } = useForm<IFormInput>();
+  const { register, handleSubmit, setValue } = useForm<IFormInput>();
   const [QRImg, setQRImg] = useState("");
   const [genString, setGenString] = useState("");
 
   let QRGenerated = false;
+
+  useEffect(() =>{
+    fetch('api/maxID', {
+      method: 'GET',
+      headers: {
+        'Content-Type' : 'application/json',
+      }
+    }).then((res) =>res.json())
+    .then((data) => {
+      console.log(Object.values(data.message[0]))
+      setValue("id", data.message[0]);
+    })
+  }, [])
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     QRCode.toDataURL(genString).then(setQRImg);
