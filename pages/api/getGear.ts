@@ -16,6 +16,7 @@ export default async function handler(
     const gear = await prisma.gear.findMany({
         select : {
             id: true,
+            name: true,
             category: true,
             date_entered: true,
             admin : true,

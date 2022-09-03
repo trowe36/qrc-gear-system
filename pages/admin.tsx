@@ -58,7 +58,7 @@ interface IFormInput {
   parentKitID: Number;
   location: locationEnum;
   comments: String;
-
+  name: String;
   QRCodeString: String;
 }
 
@@ -77,14 +77,14 @@ export default function App() {
       }
     }).then((res) =>res.json())
     .then((data) => {
-      console.log(Object.values(data.message[0]))
-      setValue("id", data.message[0]);
+      const maxID = parseInt(Object.values(data.message[0]))
+      setValue("id", maxID);
     })
   }, [])
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     QRCode.toDataURL(genString).then(setQRImg);
-    console.log(data);
+    console.log("is name included" + Object.values(data));
     fetch('/api/hello', {
       method: 'POST', // or 'PUT'
       headers: {
@@ -124,6 +124,10 @@ export default function App() {
         <div>
           <label>Item ID (AA and AG)</label>
           <input {...register("id")} />
+        </div>
+        <div>
+          <label>Item Name</label>
+          <input {...register("name")} />
         </div>
         <div>
           <label>User</label>

@@ -16,10 +16,11 @@ export default async function handler(
   //console.log(members);
   //console.log("kk" + Object.values(req.body));
   //console.log(req.body);
-
+  //console.log(req.body)
   const updateUser = await prisma.gear.create({
     data: {
       category : req.body.data.itemCategory,
+      name : req.body.data.name,
       date_entered : req.body.data.dateEntered,
       admin : req.body.data.user,
       remaining_life : parseInt(req.body.data.remainingLife),

@@ -1,0 +1,5 @@
+1. add name and availability date field to admin. save to db
+2. edit homePage to include gear name and availability date. send id, name, category and availabilitydate from homePage to checkout
+3. continue checkout
+
+4. Login functionality 

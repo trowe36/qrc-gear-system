@@ -10,9 +10,8 @@ let showLib = false;
 
 let borrowSelection: Array<{ id: Number}> = []
 
-export default function HomePage() {
+export default function homePage() {
   const [showLib, setShowLib] = useState(false);
-
 
   function viewGear() {
     if(showLib){
@@ -22,15 +21,12 @@ export default function HomePage() {
     }
   }
 
-  function checkoutGear(){
-    console.log("checking out gear ids = " + borrowSelection)
-  }
-
   const [rowData, setRowData] = useState([]);
   const [info, setInfo] = useState("");
 
   const [columnDefs] = useState([
     { headerName: "ID", field: 'id' },
+    { headerName: "Name", field: 'name' },
     { headerName: "Gear Category", field: 'category' },
     { headerName: "Date Entered", field: 'date_entered' },
     { headerName: "Admin", field: 'admin' },
@@ -44,7 +40,6 @@ export default function HomePage() {
   useEffect(() => {
     const gearFromAPI: any[] = [];
     fetchGear().then((gear) => {
-      
       for(let i = 0; i < gear.message.length; i++){
         gearFromAPI[i] = gear.message[i];
       }
@@ -84,8 +79,8 @@ export default function HomePage() {
             </AgGridReact>
             <span>{info}</span>
             <Link href={{
-              pathname: '/userPage',
-              query: JSON.stringify(borrowSelection)
+              pathname: '/checkout',
+              query: borrowSelection
             }}>
               Borrow Items
             </Link>
