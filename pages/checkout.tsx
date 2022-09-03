@@ -81,6 +81,7 @@ export default function checkout() {
 
   //useffect -> use the id's in chosen items to get details to display on this page. eg gear type. available date etc.
   useEffect(() => {
+    //TODO check availabiltity status of each item ID, get latest date and say items available then. 
     setTodaysDate(getCurrentDate())
     fetchOrderID();
     setAvailDate('Not implemented')
@@ -116,6 +117,15 @@ export default function checkout() {
   //     });
   //   }
   // }
+function sendToDB() {
+  //just take return date, userID, pickup location, pickup date
+  
+  //
+  //in backend check status of each item, check current location == pickup location. then set status as ready/pending
+  //
+}
+
+
 
   ///----structure
 
@@ -176,7 +186,7 @@ export default function checkout() {
         <div>
         <h1>Borrowing these items has the following terms etc...</h1>
         <h1>Your return date is {returnDate}</h1>
-        <Button variant="contained" >Borrow Items</Button>
+        <Button variant="contained" onClick={sendToDB}>Borrow Items</Button>
         </div>
       )}
       

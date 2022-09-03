@@ -3,3 +3,6 @@
 3. continue checkout
 
 4. Login functionality 
+//TODO check availabiltity status of each item ID, get latest date and say items available then.  /checkout
+
+//add availability date to gear table from /admin etc. 

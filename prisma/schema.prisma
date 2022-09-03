@@ -132,7 +132,6 @@ model trips {
 
 model gear {
   id                  Int     @id @unique(map: "id_UNIQUE") @default(autoincrement())
-  name                String?  @db.VarChar(45)
   category            String  @db.VarChar(45)
   date_entered        String  @db.VarChar(45)
   admin               String  @db.VarChar(45)
@@ -146,4 +145,5 @@ model gear {
   borrow_count        Int?
   current_borrower_ID Int?
   code                String? @db.VarChar(255)
+  name                String? @db.VarChar(45)
 }
