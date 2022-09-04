@@ -13,7 +13,7 @@ model applications {
   lastname              String?   @db.Text
   gender                String?   @db.Text
   dob                   DateTime? @db.Date
-  email                 String    @unique(map: "email_UNIQUE") @default("") @db.VarChar(255)
+  email                 String    @unique(map: "email_UNIQUE") @db.VarChar(255)
   phone                 String?   @db.Text
   street                String?   @db.Text
   suburb                String?   @db.Text
@@ -25,7 +25,7 @@ model applications {
   student_international Int?
   em_name               String?   @db.Text
   em_phone              String?   @db.Text
-  password              String?   @default("") @db.VarChar(255)
+  password              String?   @db.VarChar(255)
   hear                  String?   @db.Text
   student_duration      Int?
   brisbane_duration     Int?
@@ -60,30 +60,33 @@ model logbook_skills {
 }
 
 model members {
-  ID                    Int       @id @default(autoincrement())
-  firstname             String    @db.Text
-  lastname              String    @db.Text
-  forum_username        String?   @db.Text
-  gender                String?   @db.Text
-  dob                   DateTime? @db.Date
-  email                 String    @unique(map: "email_UNIQUE") @default("") @db.VarChar(255)
-  phone                 String?   @db.Text
-  street                String?   @db.Text
-  suburb                String?   @db.Text
-  country               String?   @db.Text
-  state                 String?   @db.Text
+  ID                    Int           @id @default(autoincrement())
+  firstname             String        @db.Text
+  lastname              String        @db.Text
+  forum_username        String?       @db.Text
+  gender                String?       @db.Text
+  dob                   DateTime?     @db.Date
+  email                 String        @unique(map: "email_UNIQUE") @default("") @db.VarChar(255)
+  phone                 String?       @db.Text
+  street                String?       @db.Text
+  suburb                String?       @db.Text
+  country               String?       @db.Text
+  state                 String?       @db.Text
   postcode              Int?
   student_status        Int?
-  student_id            String?   @db.Text
+  student_id            String?       @db.Text
   student_international Int?
-  em_name               String?   @db.Text
-  em_phone              String?   @db.Text
+  em_name               String?       @db.Text
+  em_phone              String?       @db.Text
   signup_id             Int?
-  status                String?   @db.VarChar(1)
-  member_since          DateTime? @db.Date
-  expire                DateTime? @db.Date
-  password              String?   @default("") @db.VarChar(255)
-  role                  String?   @db.VarChar(1)
+  status                String?       @db.VarChar(1)
+  member_since          DateTime?     @db.Date
+  expire                DateTime?     @db.Date
+  password              String?       @default("") @db.VarChar(255)
+  role                  String?       @db.VarChar(1)
+  waiver_path           String?       @db.VarChar(1024)
+  medical_info          medical_info?
+  opt_out               opt_out?
 }
 
 model seconder_logs {
@@ -117,6 +120,10 @@ model trip_signups {
   first_aid            Int?
   camping_requirements String?   @db.Text
   comments             String?   @db.Text
+  convoy               Int?
+  gear_needs           String?   @db.Text
+  dietary_requirements String?   @db.Text
+  shirt_size           String?   @db.Text
 }
 
 model trips {
@@ -127,7 +134,7 @@ model trips {
   date_to      DateTime? @db.Date
   camping_trip Int?
   crag         String?   @db.Text
-  signup_close DateTime? @db.Date
+  signup_close DateTime? @db.DateTime(0)
 }
 
 model gear {
@@ -146,4 +153,50 @@ model gear {
   current_borrower_ID Int?
   code                String? @db.VarChar(255)
   name                String? @db.VarChar(45)
+  available_date      String? @db.VarChar(45)
+}
+
+model gear_orders {
+  id            Int
+  date_ordered  String  @db.VarChar(45)
+  return_date   String  @db.VarChar(45)
+  user_id       String  @db.VarChar(45)
+  pick_location String? @db.VarChar(45)
+  pickup_date   String? @db.VarChar(45)
+  status        String? @db.VarChar(45)
+
+  @@id([id, user_id])
+}
+
+model medical_info {
+  ID          Int     @id
+  history     String? @db.VarChar(256)
+  symptoms    String? @db.VarChar(256)
+  length      String? @db.VarChar(256)
+  control     String? @db.VarChar(256)
+  medications String? @db.VarChar(256)
+  carry       String? @db.VarChar(256)
+  other       String? @db.VarChar(256)
+  members     members @relation(fields: [ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "medical_info_ibfk_1")
+}
+
+model opt_out {
+  member_id Int      @id
+  media     Boolean?
+  members   members  @relation(fields: [member_id], references: [ID], onDelete: Cascade, map: "FK_member_id")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model signoff_records {
+  firstname String @db.Text
+  lastname  String @db.Text
+
+  @@ignore
+}
+
+model user {
+  id        Int    @id @default(autoincrement())
+  firstName String @db.VarChar(255)
+  lastName  String @db.VarChar(255)
+  age       Int
 }

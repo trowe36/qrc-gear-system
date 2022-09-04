@@ -1,6 +1,7 @@
 import React, { useReducer, useEffect } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-
+//https://stackoverflow.com/questions/68008504/what-is-the-best-way-to-secure-localstorage-data-in-my-clientapp
+import { encryptData, decryptData } from "../util/util";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -138,9 +139,16 @@ const Login = () => {
         dispatch({
           type: "loginSuccess",
           payload: "Login Successfully",
-        });      
-        Router.push("/homePage")
-        //TODO set Jwt state. use in subsequent authenticated calls . idk don't need but would be nice. 
+        });
+
+        const originalData = {
+          email: state.username,
+        };
+        const salt = process.env.SALT || "6d090796-ecdf-11ea-adc1-0242ac112345";
+        const encryptedData = encryptData(originalData, salt);
+        localStorage.setItem("mk", encryptedData); // SOME_NON_RADABLE_KEY like 'mk' as 'myKey'
+        Router.push("/homePage");
+        //TODO set Jwt state. use in subsequent authenticated calls . idk don't need but would be nice.
       } else if (response.message === "Email Exists but password incorrect") {
         dispatch({
           type: "loginFailed",
