@@ -6,3 +6,14 @@
 //TODO check availabiltity status of each item ID, get latest date and say items available then.  /checkout
 
 //add availability date to gear table from /admin etc. 
+
+
+Qs. authentication. pass email arounld. global custom hook? usecontext?
+
+
+1. get payment and signoff details when user logs in - load signoff into an enum state variable with db value mapping to enum skill name. 
+2. user borrows gear. displays in 'view my loans' -> payment and signoff dependent -> see later stories 
+
+3. SIGNOFF status and userpaymentstatus affects ability to borrow
+4. user see their loans 
+5. 
