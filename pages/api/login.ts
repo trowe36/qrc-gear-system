@@ -6,7 +6,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 const phpbb = require("phpbb-password");
 
-const prisma = new PrismaClient();
+import {prisma} from "../../prisma/prismaConfig"
 
 type Data = {
   message: any;

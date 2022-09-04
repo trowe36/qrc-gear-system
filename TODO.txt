@@ -16,4 +16,19 @@ Qs. authentication. pass email arounld. global custom hook? usecontext?
 
 3. SIGNOFF status and userpaymentstatus affects ability to borrow
 4. user see their loans 
-5. 
+5. after that finsih admin panel:
+    -loading gear into db, types etc (naynay talk)
+    -sort gear orders by pickup date and location, user, gear type 
+    - mark gear 'pending' pickup 'onloan'. (maybe have another table) - or col in order table for status, eg  Pending/onloan/ when return. delete from orders row, add to legacy orders table. 
+    - 
+
+Latest notes: 
+-add availability status to gear ag grid 
+- automatically calculate availability date when adding new gear to table 
+-add sorting 
+- user borrows gear, adds to orders table & affects gear table values, status etc 
+    -> then start workjing on admin loan check off homePage
+     -> check orders as 'pickup up' start working on return functionality. 
+
+
+

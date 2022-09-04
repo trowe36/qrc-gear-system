@@ -2,8 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {PrismaClient} from "@prisma/client"
 
-const prisma = new PrismaClient()
-
+import {prisma} from "../../prisma/prismaConfig"
 type Data = {
   message: string | null []
 }

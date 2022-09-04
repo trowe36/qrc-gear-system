@@ -68,7 +68,10 @@ export default function App() {
   const [genString, setGenString] = useState("");
 
   let QRGenerated = false;
-
+function setDefaultFormValues(){
+  setValue("comments", "na")
+  setValue("parentKitID", 1)
+}
   useEffect(() =>{
     fetch('api/maxID', {
       method: 'GET',
@@ -80,12 +83,13 @@ export default function App() {
       const maxID = parseInt(Object.values(data.message[0]))
       setValue("id", maxID);
     })
+    setDefaultFormValues();
   }, [])
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     QRCode.toDataURL(genString).then(setQRImg);
     console.log("is name included" + Object.values(data));
-    fetch('/api/hello', {
+    fetch('/api/addGearEntry', {
       method: 'POST', // or 'PUT'
       headers: {
         'Content-Type': 'application/json',
@@ -185,7 +189,7 @@ export default function App() {
           </select>
         </div>
         <div>
-          <label>Parent Kit ID</label>
+          <label>Parent Kit ID (default 1)</label>
           <input {...register("parentKitID")} />
         </div>
         <div>

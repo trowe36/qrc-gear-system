@@ -2,8 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {PrismaClient} from "@prisma/client"
 import { decryptData } from '../../util/util'
-const prisma = new PrismaClient()
-
+import {prisma} from "../../prisma/prismaConfig"
 type Data = {
   signoffs: Array<object>
 }
@@ -12,7 +11,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-console.log(req.body.user.toString())
   //const result = await prisma.$queryRaw`SELECT ID FROM members WHERE email = '${req.body.user.toString()}';`
   //const result2 = await prisma.$queryRaw`SELECT skill_id FROM logbook_signoffs WHERE member_id = 'result';`
   //console.log(result)

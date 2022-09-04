@@ -16,8 +16,8 @@ export default function homePage() {
   const [currUser, setCurrUser] = useState('')
   const [rowData, setRowData] = useState([]);
   const [info, setInfo] = useState("");
-  const [signOff, setSignoff] = useState("")
   const [userPayStatus, setUserPayStatus] = useState("");
+  let signoffs: Array<number> = [];
 
   function viewGear() {
     if(showLib){
@@ -59,7 +59,9 @@ export default function homePage() {
   //TODO set signoff state variable
     fetchSignoff().then((userSignoff) => {
       for(let i = 0; i < userSignoff.signoffs.length; i++){
-        //console.log(Object.values(userSignoff.signoffs[i]))
+        if(!signoffs.includes(userSignoff.signoffs[i].skill_id, i)){
+          signoffs.push(userSignoff.signoffs[i].skill_id)
+        }
       }
     })
 
@@ -83,6 +85,7 @@ export default function homePage() {
     .then((res) => res.json())
   }
   
+  //TODO move this util folder functions 
 function checkLocalStorage(){
   let mkLocalData = localStorage.getItem('mk');
   if(!mkLocalData){
@@ -123,7 +126,7 @@ if(!originalData){
   return (
     <div>
       <label>Current user: {currUser}</label>
-      <label>Signoff: {signOff}</label>
+      <label>Signoff: </label>
       <label>Paid status: {userPayStatus}</label>
       <div>
         <Stack spacing={2} direction="column">
