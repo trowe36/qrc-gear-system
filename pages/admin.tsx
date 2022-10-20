@@ -118,6 +118,7 @@ function setDefaultFormValues(){
 }
   async function generateQR(){
     setGenString(await makeGenString(16))
+    console.log(genString)
     //setTimeout(50)
     QRGenerated = true;
   }
