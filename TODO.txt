@@ -30,5 +30,14 @@ Latest notes:
     -> then start workjing on admin loan check off homePage
      -> check orders as 'pickup up' start working on return functionality. 
 
+MAIN FUNCTIONALITY MISTAKES: 
+- (assumption that people will know what their gear is and will ask naynay for it) -> gets automatically scanned 
+-> naynay search gear tab -> sort by pickup night -> clicks 'scan gear' -> as he scans gear, those pieces of gear
+gets assigned against the people who have requested to borrow/ pickup that day. 
+
+
+
+
+
 
 
